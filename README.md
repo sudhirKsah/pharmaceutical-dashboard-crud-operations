@@ -7,7 +7,6 @@ This project is a database management system (DBMS) for a pharmaceutical company
 - [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Contributing](#contributing)
 - [License](#license)
 
 ## Introduction
@@ -37,6 +36,15 @@ To install and run the project, follow these steps:
     npm install
     cd frontend
     npm install
+    ```
+4. Setup ```.env``` file
+    ```bash
+    DB_HOST=localhost
+    DB_PORT=db_port
+    DB_USER=db_user
+    DB_PASSWORD=db_password
+    DB_NAME=db_name
+    JWT_SECRET=your_jwt_secret
     ```
 
 ## Usage
