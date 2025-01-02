@@ -37,7 +37,7 @@ To install and run the project, follow these steps:
     cd frontend
     npm install
     ```
-4. Setup ```.env``` file
+4. Setup ```.env``` file in the root of ```backend``` folder
     ```bash
     DB_HOST=localhost
     DB_PORT=db_port
