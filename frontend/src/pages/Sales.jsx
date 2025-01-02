@@ -6,7 +6,7 @@ export const Sales = () => {
   const [supplies, setSupplies] = useState([]);
 
   const columns = [
-    { key: 'sale_id', label: 'Supply ID' },
+    { key: 'sale_id', label: 'Sale ID' },
     { key: 'medicine_name', label: 'Medicine Name' },
     { key: 'store_name', label: 'Store Name' },
     { key: 'quantity_sold', label: 'Quantity Supplied' },
@@ -28,7 +28,7 @@ export const Sales = () => {
 
   return (
     <div>
-      <h1 className="text-xl font-bold mb-4">Supplies (Sales)</h1>
+      <h1 className="text-xl font-bold mb-4">Sales (Supplies)</h1>
       <Table columns={columns} data={supplies} />
     </div>
   );

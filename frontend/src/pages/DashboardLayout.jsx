@@ -58,7 +58,7 @@ const DashboardLayout = () => {
                                         : 'hover:bg-gray-700 px-3 py-2 rounded-md block'
                                 }
                             >
-                                Supplies
+                                Sales (Supplies)
                             </NavLink>
                             <NavLink
                                 to="/dashboard/orders"

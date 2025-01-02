@@ -76,8 +76,8 @@ router.put('/:id', authenticate, async (req, res, next) => {
             await pool.query(
                 `UPDATE Inventory 
                  SET quantity_in_stock = quantity_in_stock - $1 
-                 WHERE medicine_id = $2 AND store_id = $3`,
-                [quantity_ordered, medicine_id, store_id]
+                 WHERE medicine_id = $2`,
+                [quantity_ordered, medicine_id]
             );
         }
 

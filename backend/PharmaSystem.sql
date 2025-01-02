@@ -126,3 +126,83 @@ VALUES
 (5, 400);
 
 
+-- i. Aggregate functions, Group by...having
+SELECT s.store_name, SUM(o.quantity_ordered) AS total_ordered
+FROM Orders o
+JOIN Stores s ON o.store_id = s.store_id
+GROUP BY s.store_name
+HAVING SUM(o.quantity_ordered) > 10;
+
+-- ii. Order by
+SELECT medicine_name, price
+FROM Medicines
+ORDER BY price DESC;
+
+-- iii. Join, Outer Join
+SELECT o.order_id, s.store_name, m.medicine_name, o.quantity_ordered
+FROM Orders o
+JOIN Stores s ON o.store_id = s.store_id
+JOIN Medicines m ON o.medicine_id = m.medicine_id;
+
+SELECT s.store_name, o.order_id, o.order_date
+FROM Stores s
+LEFT JOIN Orders o ON s.store_id = o.store_id;
+
+-- iv. Query with Boolean operators
+SELECT o.order_id, o.order_date, o.order_status, o.quantity_ordered
+FROM Orders o
+WHERE o.order_status IN ('Pending', 'Fulfilled')
+AND o.quantity_ordered > 20;
+
+-- v. Query with arithmetic operators
+SELECT m.medicine_name, 
+       o.quantity_ordered * m.price as order_value,
+       s.quantity_sold * m.price as sales_value
+FROM Orders o
+JOIN Medicines m ON o.medicine_id = m.medicine_id
+LEFT JOIN Sales s ON o.order_id = s.order_id;
+
+-- vi. String operators
+SELECT a.first_name || ' ' || a.last_name as full_name,
+       a.street || ', ' || a.city || ', ' || a.state as full_address
+FROM Admin a
+WHERE a.city ILIKE 'kac%';
+
+-- vii. to_char, extract
+SELECT m.medicine_name,
+       to_char(m.manufacture_date, 'Month DD, YYYY') as mfg_date,
+       EXTRACT(year FROM m.expiry_date) as expiry_year
+FROM Medicines m;
+
+-- viii. Between, IN, Not between, Not IN
+SELECT m.medicine_name, m.price
+FROM Medicines m
+WHERE m.price BETWEEN 50 AND 200
+  AND m.medicine_id NOT IN (
+      SELECT medicine_id FROM Orders WHERE order_status = 'Cancelled'
+  );
+
+-- ix. Set operations
+(SELECT m.medicine_name
+FROM Medicines m
+JOIN Orders o ON m.medicine_id = o.medicine_id
+WHERE o.order_status = 'Fulfilled')
+EXCEPT
+(SELECT m.medicine_name
+FROM Medicines m
+JOIN Orders o ON m.medicine_id = o.medicine_id
+WHERE o.order_status = 'Cancelled');
+
+-- x. Subquery with EXISTS/NOT EXISTS, ANY, ALL
+SELECT m.medicine_name
+FROM Medicines m
+WHERE EXISTS (
+    SELECT 1 
+    FROM Orders o
+    JOIN Sales s ON o.order_id = s.order_id
+    WHERE o.medicine_id = m.medicine_id
+    AND s.quantity_sold > ALL (
+        SELECT AVG(quantity_sold)
+        FROM Sales
+    )
+);
