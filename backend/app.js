@@ -16,7 +16,7 @@ const app = express();
 app.use(bodyParser.json());
 // app.use(cors());
 app.use(cors({
-    origin: ['http://localhost:3000', 'http://localhost:5173']
+    origin: ['https://pharmait.vercel.app', 'http://localhost:5173']
 }));
 
 // Check DB connection
