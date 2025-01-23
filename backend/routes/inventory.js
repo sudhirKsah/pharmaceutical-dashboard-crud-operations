@@ -3,7 +3,6 @@ const pool = require('../db');
 const authenticate = require('../middleware/authMiddleware');
 const router = express.Router();
 
-// Get all inventory with medicine name, and quantity in stock
 router.get('/', authenticate, async (req, res, next) => {
     try {
         const query = `
