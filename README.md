@@ -7,7 +7,6 @@ This project is a database management system (DBMS) for a pharmaceutical company
 - [Features](#features)
 - [Installation](#installation)
 - [Usage](#usage)
-- [License](#license)
 
 ## Introduction
 The Pharma+ Project is designed to help pharmaceutical companies manage their data efficiently. It provides a user-friendly interface/dashboard for managing inventory, tracking sales, storing medicine information, managing orders and managing medical stores to whom the company is supplying medicines.
@@ -48,6 +47,12 @@ To install and run the project, follow these steps:
     ```
 
 ## Usage
+Hash admin password and store in database
+```bash
+cd backend
+node hashAdmin.js
+```
+
 To start the application, run:
 Run Backend
 ```bash
@@ -59,8 +64,3 @@ Run Frontend
 cd frontend
 npm run dev
 ```
-Follow the on-screen instructions to use the application.
-
-
-## License
-This project is licensed under the MIT License.
