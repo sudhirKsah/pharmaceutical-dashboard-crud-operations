@@ -16,7 +16,7 @@ const app = express();
 app.use(bodyParser.json());
 // app.use(cors());
 app.use(cors({
-    origin: ['https://pharmait.vercel.app', 'http://localhost:5173']
+    origin: ['https://pharmait.vercel.app', 'https://pharmaceutical-dashboard-crud-operations.vercel.app', 'https://pharmaceutical-dashboard-crud-operat-sudhir-kumar-sahs-projects.vercel.app', 'http://localhost:5173']
 }));
 
 // Check DB connection
