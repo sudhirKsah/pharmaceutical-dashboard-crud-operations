@@ -1,4 +1,4 @@
-const API_BASE = 'http://localhost:5000/api';
+const API_BASE = 'https://pharmaplus-lv5s.onrender.com/api';
 
 export const apiFetch = async (endpoint, options = {}) => {
   const headers = {

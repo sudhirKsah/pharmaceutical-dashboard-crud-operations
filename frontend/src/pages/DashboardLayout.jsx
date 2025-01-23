@@ -1,17 +1,17 @@
 import React, { useState } from 'react';
-import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { NavLink, Outlet, useNavigate, useOutlet } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const DashboardLayout = () => {
     const [isCollapsed, setIsCollapsed] = useState(false);
     const navigate = useNavigate();
-
+    const outlet = useOutlet();
     const { logout } = useAuth();
 
     const handleLogout = () => {
         // localStorage.removeItem('token'); 
         logout();
-        navigate('/login'); 
+        navigate('/login');
     };
 
     return (
@@ -98,6 +98,11 @@ const DashboardLayout = () => {
 
             {/* Main Content */}
             <div className="flex-1 p-6">
+                {!outlet && (
+                    <p className="text-gray-500 text-center mt-52">
+                        Welcome to the Pharma+ Dashboard. Select an option to begin exploring and managing your pharmaceutical data efficiently.
+                    </p>
+                )}
                 <Outlet />
             </div>
         </div>
