@@ -9,6 +9,7 @@ export const Medicines = () => {
   const [medicines, setMedicines] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentMedicine, setCurrentMedicine] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const columns = [
     { key: 'medicine_id', label: 'Medicine ID' },
@@ -23,11 +24,14 @@ export const Medicines = () => {
   }, []);
 
   const fetchMedicines = async () => {
+    setLoading(true);
     try {
       const data = await apiFetch('medicines');
       setMedicines(data);
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -67,20 +71,24 @@ export const Medicines = () => {
         </Button>
       </div>
 
-      <Table
-        columns={columns}
-        data={medicines}
-        onEdit={(medicine) => {
-          setCurrentMedicine(medicine);
-          setIsModalOpen(true);
-        }}
-        onDelete={async (medicine) => {
-          if (window.confirm('Delete this medicine?')) {
-            await apiFetch(`medicines/${medicine.medicine_id}`, { method: 'DELETE' });
-            fetchMedicines();
-          }
-        }}
-      />
+      {loading ? (
+        <p className="text-center text-gray-500">Loading...</p>
+      ) : (
+        <Table
+          columns={columns}
+          data={medicines}
+          onEdit={(medicine) => {
+            setCurrentMedicine(medicine);
+            setIsModalOpen(true);
+          }}
+          onDelete={async (medicine) => {
+            if (window.confirm('Delete this medicine?')) {
+              await apiFetch(`medicines/${medicine.medicine_id}`, { method: 'DELETE' });
+              fetchMedicines();
+            }
+          }}
+        />
+      )}
 
       <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <form onSubmit={handleSubmit}>
@@ -92,11 +100,11 @@ export const Medicines = () => {
             </div>
             <div>
               <label>Manufacture Date</label>
-              <Input name="manufacture_date" defaultValue={currentMedicine?.manufacture_date} required />
+              <Input name="manufacture_date" type='date' defaultValue={currentMedicine?.manufacture_date} required />
             </div>
             <div>
               <label>Expiry Date</label>
-              <Input name="expiry_date" defaultValue={currentMedicine?.expiry_date} required />
+              <Input name="expiry_date" type='date' defaultValue={currentMedicine?.expiry_date} required />
             </div>
             <div>
               <label>Price</label>
@@ -114,4 +122,5 @@ export const Medicines = () => {
     </div>
   );
 };
+
 export default Medicines;

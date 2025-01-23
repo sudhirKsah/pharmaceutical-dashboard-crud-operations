@@ -9,6 +9,7 @@ export const Inventory = () => {
   const [inventory, setInventory] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentItem, setCurrentItem] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const columns = [
     { key: 'inventory_id', label: 'Inventory ID' },
@@ -22,11 +23,14 @@ export const Inventory = () => {
   }, []);
 
   const fetchInventory = async () => {
+    setLoading(true);
     try {
       const data = await apiFetch('inventory');
       setInventory(data);
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -66,6 +70,9 @@ export const Inventory = () => {
         </Button>
       </div>
 
+      {loading ? (
+        <p className="text-center text-gray-500">Loading...</p>
+      ) : (
       <Table
         columns={columns}
         data={inventory}
@@ -80,6 +87,7 @@ export const Inventory = () => {
           }
         }}
       />
+      )}
 
       <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <form onSubmit={handleSubmit}>

@@ -10,6 +10,8 @@ export const Orders = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentOrder, setCurrentOrder] = useState(null);
 
+  const [loading, setLoading] = useState(true);
+
   const columns = [
     { key: 'order_id', label: 'Order ID' },
     { key: 'store_id', label: 'Store ID' },
@@ -26,11 +28,14 @@ export const Orders = () => {
   }, []);
 
   const fetchOrders = async () => {
+    setLoading(true);
     try {
       const data = await apiFetch('orders');
       setOrders(data);
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -70,6 +75,9 @@ export const Orders = () => {
         </Button>
       </div>
 
+      {loading ? (
+        <p className="text-center text-gray-500">Loading...</p>
+      ) : (
       <Table
         columns={columns}
         data={orders}
@@ -84,6 +92,7 @@ export const Orders = () => {
           }
         }}
       />
+      )}
 
       <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <form onSubmit={handleSubmit}>
@@ -107,7 +116,7 @@ export const Orders = () => {
             </div>
             <div>
               <label>Status</label>
-              <Input name="order_status" defaultValue={currentOrder?.order_status} required />
+              <Input name="order_status" placeholder='Pending or Fulfilled or Cancelled' defaultValue={currentOrder?.order_status} required />
             </div>
           </div>
           <div className="mt-4 flex justify-end gap-2">

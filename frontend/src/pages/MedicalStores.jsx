@@ -9,6 +9,7 @@ export const MedicalStores = () => {
   const [stores, setStores] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentStore, setCurrentStore] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const columns = [
     { key: 'store_id', label: 'Store ID' },
@@ -21,11 +22,14 @@ export const MedicalStores = () => {
   }, []);
 
   const fetchStores = async () => {
+    setLoading(true);
     try {
       const data = await apiFetch('medicalstores');
       setStores(data);
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -65,6 +69,9 @@ export const MedicalStores = () => {
         </Button>
       </div>
 
+      {loading ? (
+        <p className="text-center text-gray-500">Loading...</p>
+      ) : (
       <Table
         columns={columns}
         data={stores}
@@ -79,6 +86,7 @@ export const MedicalStores = () => {
           }
         }}
       />
+      )}
 
       <Modal open={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <form onSubmit={handleSubmit}>
