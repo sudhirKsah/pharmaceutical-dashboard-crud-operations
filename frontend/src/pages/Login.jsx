@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -7,30 +8,38 @@ const Login = () => {
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
+    const { login } = useAuth();
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
         try {
-            const response = await fetch('http://localhost:5000/api/users/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email, password }),
-            });
+            // const response = await fetch('http://localhost:5000/api/users/login', {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //     },
+            //     body: JSON.stringify({ email, password }),
+            // });
 
-            if (!response.ok) {
-                const errorData = await response.json();
-                setError(errorData.message || 'Login failed');
+            // if (!response.ok) {
+            //     const errorData = await response.json();
+            //     setError(errorData.message || 'Login failed');
+            //     return;
+            // }
+
+            // const data = await response.json();
+            // localStorage.setItem('token', data.token); 
+
+            const result = await login(email, password);
+            if(!result.success){
+                setError(result.message);
                 return;
             }
-
-            const data = await response.json();
-            localStorage.setItem('token', data.token); 
             navigate('/dashboard'); 
         } catch (err) {
-            console.error('Login error:', err);
-            setError('An error occurred during login. Please try again.');
+            // console.error('Login error:', err);
+            setError('Login failed. Please try again.');
         }
     };
 

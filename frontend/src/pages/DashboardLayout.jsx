@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const DashboardLayout = () => {
     const [isCollapsed, setIsCollapsed] = useState(false);
     const navigate = useNavigate();
 
+    const { logout } = useAuth();
+
     const handleLogout = () => {
-        localStorage.removeItem('token'); 
+        // localStorage.removeItem('token'); 
+        logout();
         navigate('/login'); 
     };
 

@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 const Navbar = () => {
-    const isLoggedIn = Boolean(localStorage.getItem('token'));
+    // const isLoggedIn = Boolean(localStorage.getItem('token'));
+    const { isLoggedIn } = useAuth();
 
     return (
         <nav className="bg-green-500">

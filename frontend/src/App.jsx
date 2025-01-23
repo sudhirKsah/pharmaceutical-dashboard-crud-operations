@@ -11,9 +11,11 @@ import { Sales } from './pages/Sales';
 import { Orders } from './pages/Orders';
 import { Inventory } from './pages/Inventory';
 import ProtectedRoute from './components/ProtectedRoute'; 
+import { AuthProvider } from './context/AuthContext';
 
 const App = () => {
   return (
+    <AuthProvider>
     <Router>
       <Navbar />
       <Routes>
@@ -36,6 +38,7 @@ const App = () => {
         </Route>
       </Routes>
     </Router>
+    </AuthProvider>
   );
 };
 
