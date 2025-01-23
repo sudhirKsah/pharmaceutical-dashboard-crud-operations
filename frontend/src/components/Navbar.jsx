@@ -25,12 +25,12 @@ const Navbar = () => {
                                     >
                                         Login
                                     </Link>
-                                    <Link
+                                    {/* <Link
                                         to="/register"
                                         className="text-white bg-indigo-700 hover:bg-indigo-800 rounded-md text-sm font-medium px-3 py-2"
                                     >
                                         Register
-                                    </Link>
+                                    </Link> */}
                                 </>
                             ) : (
                                 <Link

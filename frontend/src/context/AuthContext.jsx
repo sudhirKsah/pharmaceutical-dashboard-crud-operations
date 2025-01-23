@@ -33,7 +33,7 @@ export const AuthProvider = ({ children }) => {
             // console.error('Login error', error);
             setLoginError(true);
             // throw error;
-            return { success: false, message: 'An unexpected error occurred. Please try again.' };
+            return { success: false, message: 'Login Failed. Please try again' };
         }
     };
 
