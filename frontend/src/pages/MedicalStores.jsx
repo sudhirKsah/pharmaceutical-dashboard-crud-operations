@@ -70,7 +70,7 @@ export const MedicalStores = () => {
       </div>
 
       {loading ? (
-        <p className="text-center text-gray-500">Loading...</p>
+        <p className="text-center text-gray-500">Loading...<br />Please, wait for sometime because the database is hosted on a free server and it takes time to wake up.</p>
       ) : (
       <Table
         columns={columns}
